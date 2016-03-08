@@ -23,6 +23,7 @@ __copyright__ = '(C) 2016, Alessandro Pasotti - ItOpen'
 
 import sys
 import os
+import codecs
 
 # Import the PyQt and QGIS libraries
 from PyQt4.QtCore import *
@@ -83,7 +84,7 @@ class ServerSimpleFilter(QgsServerFilter):
             minx, miny, maxx, maxy = params.get('BBOX', '0,0,0,0').split(',')
             url = self.get_url(request, params)
             QgsMessageLog.logMessage("OpenLayersFilter.responseComplete URL %s" % url, 'plugin', QgsMessageLog.INFO)
-            f = open(os.path.dirname(__file__) + '/assets/' + 'map_template.html')
+            f = codecs.open(os.path.dirname(__file__) + '/assets/' + 'map_template.html', encoding='utf-8')
             body = ''.join(f.readlines())
             f.close()
             body = body % {
@@ -96,7 +97,7 @@ class ServerSimpleFilter(QgsServerFilter):
                 'width': params.get('WIDTH', 600),
                 'projection' : params.get('CRS', 'EPSG:4326'),
             }
-            request.appendBody(body)
+            request.appendBody(body.encode('utf8'))
             QgsMessageLog.logMessage("OpenLayersFilter.responseComplete BODY %s" % body, 'plugin', QgsMessageLog.INFO)
 
 
