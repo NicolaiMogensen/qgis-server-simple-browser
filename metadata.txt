@@ -5,7 +5,7 @@ qgisMaximumVersion=2.99
 description=Simple QGIS Server WMS Browser
 version=version 1.0
 author=Alessandro Pasotti (ItOpen)
-email=apasotti@gmail.com
+email=elpaso@itopen.it
 ; if True it's a server plugin
 server=True
 
@@ -14,13 +14,13 @@ external_deps=none,really
 
 tags=server, openlayers, browser
 
-tracker=https://github.com/elpaso/qgis-server-browser-format
-homepage=https://github.com/elpaso/qgis-server-browser-format
+tracker=https://github.com/elpaso/qgis-server-simple-browser/issues
+homepage=http://www.itopen.it/qgis-server-simple-browser-plugin/
 repository=https://github.com/elpaso/qgis-server-browser-format
 
 category=server
 
 experimental=True
 
-about=Creates a simple project browser with OpenLayers map to GetProjectSettings
+about=Adds a stylesheet to GetProjectSettings requests and creates a simple project browser with OpenLayers map preview.
 
