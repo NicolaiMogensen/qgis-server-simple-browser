@@ -139,7 +139,7 @@ class SimpleBrowser:
 
     # run
     def about(self):
-        QMessageBox.information(self.iface.mainWindow(), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser"), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser is a simple browser plugin for QGIS Server, it does just nothing in QGIS Desktop."))
+        QMessageBox.information(self.iface.mainWindow(), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser"), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser is a simple browser plugin for QGIS Server, it does just nothing in QGIS Desktop. See: <a href=\"http://www.itopen.it/qgis-server-simple-browser-plugin/\">plugin's homepage</a>"))
 
 
 
