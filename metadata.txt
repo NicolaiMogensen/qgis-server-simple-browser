@@ -3,13 +3,15 @@ name=QGIS Server Browser
 qgisMinimumVersion=2.5
 qgisMaximumVersion=2.99
 description=Simple QGIS Server WMS Browser
-version=version 1.0
+version=version 1.1
 author=Alessandro Pasotti (ItOpen)
 email=elpaso@itopen.it
 ; if True it's a server plugin
 server=True
 
 changelog=
+    1.1: fixes Desktop iface (added a fake one)
+    
 external_deps=none,really
 
 tags=server, openlayers, browser

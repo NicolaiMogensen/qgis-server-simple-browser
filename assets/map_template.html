@@ -88,7 +88,14 @@
         </div>
     </div>
     <script type="text/javascript">
-    /**
+
+        var mousePositionControl = new ol.control.MousePosition({
+            coordinateFormat: ol.coordinate.createStringXY(4),
+            projection: 'EPSG:4326',
+            undefinedHTML: '&nbsp;'
+        });
+
+        /**
         * Elements that make up the popup.
         */
         var container = document.getElementById('popup');
@@ -139,7 +146,8 @@
             controls: ol.control.defaults().extend([
                 new ol.control.ScaleLine({
                     units: 'degrees'
-                })
+                }),
+                mousePositionControl
             ]),
             layers: layers,
             target: 'map',

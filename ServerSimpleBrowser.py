@@ -24,6 +24,7 @@ __copyright__ = '(C) 2016, Alessandro Pasotti - ItOpen'
 import sys
 import os
 import codecs
+import re
 
 # Import the PyQt and QGIS libraries
 from PyQt4.QtCore import *
@@ -68,12 +69,14 @@ class ServerSimpleFilter(QgsServerFilter):
             f.close()
             request.appendBody(body)
 
+
         if params.get('SERVICE', '').lower() == 'wms' \
                 and params.get('REQUEST', '').lower() == 'getprojectsettings':
             # inject XSL code
-            body = request.body()
+            body = unicode(request.body())
             request.clearBody()
-            body = body.replace('<?xml version="1.0" encoding="utf-8"?>', '<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="%s&amp;SERVICE=WMS&amp;REQUEST=XSL"?>' % self.get_url(request, params))
+            url = self.get_url(request, params)
+            body = body.replace('<?xml version="1.0" encoding="utf-8"?>', '<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="%s&amp;SERVICE=WMS&amp;REQUEST=XSL"?>' % url)
             request.appendBody(body)
 
 
@@ -112,6 +115,31 @@ class ServerSimpleBrowser:
             self.serverIface.registerFilter(ServerSimpleFilter(serverIface), 1000)
         except Exception, e:
             QgsLogger.debug("ServerSimpleBrowseer- Error loading filter %s", e)
+
+
+
+class SimpleBrowser:
+    def __init__(self, iface):
+        # Save reference to the QGIS interface
+        self.iface = iface
+        self.canvas = iface.mapCanvas()
+
+
+    def initGui(self):
+        # Create action that will start plugin
+        self.action = QAction(QIcon(":/plugins/"), "About Server SimpleBrowser", self.iface.mainWindow())
+        # Add toolbar button and menu item
+        self.iface.addPluginToMenu("Server SimpleBrowser", self.action)
+        # connect the action to the run method
+        QObject.connect(self.action, SIGNAL("activated()"), self.about)
+
+    def unload(self):
+        # Remove the plugin menu item and icon
+        self.iface.removePluginMenu("Server SimpleBrowser", self.action)
+
+    # run
+    def about(self):
+        QMessageBox.information(self.iface.mainWindow(), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser"), QCoreApplication.translate('SimpleBrowser', "Server SimpleBrowser is a simple browser plugin for QGIS Server, it does just nothing in QGIS Desktop."))
 
 
 
