@@ -97,8 +97,15 @@
             </footer>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        <![CDATA[
+        var urls = document.getElementsByClassName("olmap-link");
+        for(var i = 0; i < urls.length; i++)
+        {
+           urls[i].href = urls[i].href.replace(/.*\?/, '?');
+        }
+        ]]>
+    </script>
   </body>
 </html>
 </xsl:template>
@@ -117,11 +124,9 @@
     <tr>
         <td class="level{count(ancestor::wms:Layer)}"><xsl:value-of select="$layers"/></td>
         <td><xsl:value-of select="wms:Title"/></td>
-        <td><a target="_blank" href="{$getmap}&amp;BBOX={$minx},{$miny},{$maxx},{$maxy}&amp;CRS={$CRS}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}" class="btn btn-default">View</a></td>
+        <td><a target="_blank" href="{$getmap}&amp;BBOX={$minx},{$miny},{$maxx},{$maxy}&amp;CRS={$CRS}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}" class="btn btn-default olmap-link">View</a></td>
     </tr>
     </xsl:for-each>
 </xsl:template>
-
-
 
 </xsl:stylesheet>
