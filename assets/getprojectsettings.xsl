@@ -108,16 +108,16 @@
     <xsl:param name="getmap"/>
     <xsl:for-each select="//wms:Layer">
     <!--stick to 4326, inverted axis -->
-    <xsl:variable name="CRS" select="wms:BoundingBox/@CRS" />
-    <xsl:variable name="maxy" select="wms:BoundingBox/@maxx" />
-    <xsl:variable name="maxx" select="wms:BoundingBox/@maxy" />
-    <xsl:variable name="miny" select="wms:BoundingBox/@minx" />
-    <xsl:variable name="minx" select="wms:BoundingBox/@miny" />
+    <xsl:variable name="CRS" select="wms:BoundingBox[@CRS='EPSG:4326']/@CRS" />
+    <xsl:variable name="maxy" select="wms:BoundingBox[@CRS='EPSG:4326']/@maxx" />
+    <xsl:variable name="maxx" select="wms:BoundingBox[@CRS='EPSG:4326']/@maxy" />
+    <xsl:variable name="miny" select="wms:BoundingBox[@CRS='EPSG:4326']/@minx" />
+    <xsl:variable name="minx" select="wms:BoundingBox[@CRS='EPSG:4326']/@miny" />
     <xsl:variable name="layers" select="wms:Name"/>
     <tr>
         <td class="level{count(ancestor::wms:Layer)}"><xsl:value-of select="$layers"/></td>
         <td><xsl:value-of select="wms:Title"/></td>
-        <td><a target="_blank" href="{$getmap}&amp;CRS={$CRS}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}&amp;BBOX=" class="btn btn-default" onclick="window.location=this.href+encodeURIComponent('{$minx},{$miny},{$maxx},{$maxy}')">View</a></td>
+        <td><a target="_blank" href="{$getmap}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}&amp;CRS=EPSG:4326&amp;BBOX=" class="btn btn-default" onclick="window.location=this.href+ ('{$CRS}' ? '{$minx},{$miny},{$maxx},{$maxy}' : '-180,-90,180,90')">View</a></td>
     </tr>
     </xsl:for-each>
 </xsl:template>
