@@ -10,6 +10,7 @@ email=elpaso@itopen.it
 server=True
 
 changelog=
+    1.3: support projections
     1.2: fixes XSLT onload event not firing in FF
     1.1: fixes Desktop iface (added a fake one)
 
