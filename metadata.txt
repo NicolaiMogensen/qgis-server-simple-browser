@@ -20,7 +20,7 @@ tags=server, openlayers, browser
 
 tracker=https://github.com/elpaso/qgis-server-simple-browser/issues
 homepage=http://www.itopen.it/qgis-server-simple-browser-plugin/
-repository=https://github.com/elpaso/qgis-server-browser-format
+repository=https://github.com/elpaso/qgis-server-simple-browser
 
 category=server
 
