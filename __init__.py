@@ -5,10 +5,10 @@
 
 
 def serverClassFactory(serverIface):
-    from ServerSimpleBrowser import ServerSimpleBrowser
+    from . serversimplebrowser import ServerSimpleBrowser
     return ServerSimpleBrowser(serverIface)
 
 def classFactory(iface):
-    from ServerSimpleBrowser import SimpleBrowser
+    from . serversimplebrowser import SimpleBrowser
     return SimpleBrowser(iface)
 

@@ -117,7 +117,7 @@
     <tr>
         <td class="level{count(ancestor::wms:Layer)}"><xsl:value-of select="$layers"/></td>
         <td><xsl:value-of select="wms:Title"/></td>
-        <td><a href="{$getmap}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}&amp;CRS=EPSG:4326&amp;BBOX=" class="btn btn-default" onclick="window.location=this.href+ ('{$CRS}' ? '{$minx},{$miny},{$maxx},{$maxy}' : '-180,-90,180,90');return false">View</a></td>
+        <td><a href="{$getmap}&amp;SERVICE=WMS&amp;REQUEST=GetMap&amp;FORMAT=application/openlayers&amp;LAYERS={$layers}&amp;CRS=EPSG:4326&amp;BBOX=-180,-90,180,90" class="btn btn-default" __disabled_onclick="window.location=this.href+ ('{$CRS}' ? '{$minx},{$miny},{$maxx},{$maxy}' : '-180,-90,180,90');return false">View</a></td>
     </tr>
     </xsl:for-each>
 </xsl:template>

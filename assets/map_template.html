@@ -133,13 +133,20 @@
                 source: new ol.source.MapQuest({layer: 'sat'})
             }),*/
             new ol.layer.Image({
-                extent: [%(extent)s],
+                //extent: [%(extent)s],
                 source: wmsSource
             })
         ];
 
+        var projection = new ol.proj.Projection({
+          code: '%(projection)s',
+          units: 'degrees'
+        });
+
         var view = new ol.View({
-            projection: '%(projection)s',
+            projection: projection,
+            center: [0, 0],
+            zoom: 2
         });
 
         var map = new ol.Map({
@@ -155,7 +162,7 @@
             view: view
         });
 
-        view.fit([%(extent)s], [%(width)s,%(height)s]);
+        //view.fit([%(extent)s], [%(width)s,%(height)s]);
 
         map.on('singleclick', function(evt) {
             var coordinate = evt.coordinate;
