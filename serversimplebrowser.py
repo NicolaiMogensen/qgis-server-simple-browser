@@ -27,8 +27,9 @@ import codecs
 import re
 
 # Import the PyQt and QGIS libraries
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
 from qgis.core import *
 from qgis.server import *
 
@@ -67,16 +68,16 @@ class ServerSimpleFilter(QgsServerFilter):
             f = open(os.path.dirname(__file__) + '/assets/' + 'getprojectsettings.xsl')
             body = ''.join(f.readlines())
             f.close()
-            request.appendBody(body)
+            request.appendBody(body.encode('utf8'))
 
 
         if params.get('SERVICE', '').lower() == 'wms' \
                 and params.get('REQUEST', '').lower() == 'getprojectsettings':
             # inject XSL code
-            body = unicode(request.body())
+            body = request.body()
             request.clearBody()
             url = self.get_url(request, params)
-            body = body.replace('<?xml version="1.0" encoding="utf-8"?>', '<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="%s&amp;SERVICE=WMS&amp;REQUEST=XSL"?>' % url)
+            body = body.replace(b'<?xml version="1.0" encoding="utf-8"?>', b'<?xml version="1.0" encoding="utf-8"?>\n<?xml-stylesheet type="text/xsl" href="%s&amp;SERVICE=WMS&amp;REQUEST=XSL"?>' % url.encode('utf8'))
             request.appendBody(body)
 
 
@@ -104,7 +105,6 @@ class ServerSimpleFilter(QgsServerFilter):
             QgsMessageLog.logMessage("OpenLayersFilter.responseComplete BODY %s" % body, 'plugin', QgsMessageLog.INFO)
 
 
-
 class ServerSimpleBrowser:
     """Plugin for QGIS server"""
 
@@ -113,7 +113,7 @@ class ServerSimpleBrowser:
         self.serverIface = serverIface
         try:
             self.serverIface.registerFilter(ServerSimpleFilter(serverIface), 1000)
-        except Exception, e:
+        except Exception as e:
             QgsLogger.debug("ServerSimpleBrowseer- Error loading filter %s", e)
 
 
