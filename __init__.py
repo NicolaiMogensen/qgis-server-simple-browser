@@ -8,7 +8,7 @@ def serverClassFactory(serverIface):
     from . serversimplebrowser import ServerSimpleBrowser
     return ServerSimpleBrowser(serverIface)
 
+
 def classFactory(iface):
     from . serversimplebrowser import SimpleBrowser
     return SimpleBrowser(iface)
-

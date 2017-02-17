@@ -42,6 +42,8 @@ class ServerSimpleFilter(QgsServerFilter):
         url += ':' + self.serverInterface().getEnv("SERVER_PORT")
         url += self.serverInterface().getEnv("SCRIPT_NAME")
         url += '?MAP=' + params.get('MAP', '')
+        if params.get('ACCESS_TOKEN'):
+            url += '&amp;access_token=' + params.get('ACCESS_TOKEN')
         return url
 
 
@@ -93,7 +95,7 @@ class ServerSimpleFilter(QgsServerFilter):
             f.close()
             body = body % {
                 'extent' : params.get('BBOX', ''),
-                'url' : url,
+                'url' : url.replace('&amp;', '&'),
                 'layers': params.get('LAYERS', ''),
                 'center': center,
                 'zoom': params.get('ZOOM', '12'),
@@ -114,7 +116,7 @@ class ServerSimpleBrowser:
         try:
             self.serverIface.registerFilter(ServerSimpleFilter(serverIface), 1000)
         except Exception as e:
-            QgsLogger.debug("ServerSimpleBrowseer- Error loading filter %s", e)
+            QgsLogger.debug("ServerSimpleBrowser- Error loading filter %s", e)
 
 
 
