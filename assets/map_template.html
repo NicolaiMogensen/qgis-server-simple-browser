@@ -138,13 +138,9 @@
             })
         ];
 
-        var projection = new ol.proj.Projection({
-          code: '%(projection)s',
-          units: 'degrees'
-        });
 
         var view = new ol.View({
-            projection: projection,
+            projection: 'EPSG:4326',
             center: [0, 0],
             zoom: 2
         });
@@ -161,8 +157,6 @@
             overlays: [overlay],
             view: view
         });
-
-        //view.fit([%(extent)s], [%(width)s,%(height)s]);
 
         map.on('singleclick', function(evt) {
             var coordinate = evt.coordinate;
